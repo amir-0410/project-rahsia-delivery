@@ -112,7 +112,7 @@
            class="button"
            target="_blank"
            rel="noopener">
-            View / Download GIF
+            Download GIF
         </a>
     </div>
 
@@ -128,20 +128,30 @@
     const photoUrl = params.get("photo");
     const gifUrl = params.get("gif");
 
+    function getDownloadUrl(url) {
+        if (!url) return "";
+    
+        return url.replace(
+            "/image/upload/",
+            "/image/upload/fl_attachment/"
+        );
+    }
+    
     if (photoUrl) {
         document.getElementById("photoCard").style.display = "block";
-
+    
         document.getElementById("photoPreview").src = photoUrl;
-        document.getElementById("photoDownload").href = photoUrl;
+        document.getElementById("photoDownload").href =
+            getDownloadUrl(photoUrl);
     }
-
+    
     if (gifUrl) {
         document.getElementById("gifCard").style.display = "block";
-
+    
         document.getElementById("gifPreview").src = gifUrl;
-        document.getElementById("gifDownload").href = gifUrl;
+        document.getElementById("gifDownload").href =
+            getDownloadUrl(gifUrl);
     }
-
     if (!photoUrl && !gifUrl) {
         document.getElementById("app").innerHTML = `
             <div class="error">
