@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Project Rahsia</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 24px 16px 40px;
+            font-family: Arial, sans-serif;
+            background: #f7f7f7;
+            color: #222;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 520px;
+            margin: auto;
+        }
+
+        h1 {
+            margin: 10px 0 6px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            margin-bottom: 28px;
+            color: #666;
+        }
+
+        .card {
+            background: white;
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 20px;
+        }
+
+        img {
+            width: 100%;
+            max-height: 600px;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .button {
+            display: block;
+            margin-top: 16px;
+            padding: 14px 20px;
+            border-radius: 12px;
+            background: #222;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .button:active {
+            transform: scale(0.98);
+        }
+
+        .footer {
+            margin-top: 30px;
+            color: #999;
+            font-size: 13px;
+        }
+
+        .error {
+            margin-top: 80px;
+            color: #b00020;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container" id="app">
+
+    <h1>PROJECT RAHSIA</h1>
+    <div class="subtitle">Your memories are ready ✨</div>
+
+    <div class="card" id="photoCard" style="display:none;">
+        <h2>📸 Your Photo</h2>
+
+        <img id="photoPreview" alt="Your photo">
+
+        <a id="photoDownload"
+           class="button"
+           target="_blank"
+           rel="noopener">
+            Download Photo
+        </a>
+    </div>
+
+    <div class="card" id="gifCard" style="display:none;">
+        <h2>🎞️ Your GIF</h2>
+
+        <img id="gifPreview" alt="Your GIF">
+
+        <a id="gifDownload"
+           class="button"
+           target="_blank"
+           rel="noopener">
+            View / Download GIF
+        </a>
+    </div>
+
+    <div class="footer">
+        Made with ❤️ by Project Rahsia
+    </div>
+
+</div>
+
+<script>
+    const params = new URLSearchParams(window.location.search);
+
+    const photoUrl = params.get("photo");
+    const gifUrl = params.get("gif");
+
+    if (photoUrl) {
+        document.getElementById("photoCard").style.display = "block";
+
+        document.getElementById("photoPreview").src = photoUrl;
+        document.getElementById("photoDownload").href = photoUrl;
+    }
+
+    if (gifUrl) {
+        document.getElementById("gifCard").style.display = "block";
+
+        document.getElementById("gifPreview").src = gifUrl;
+        document.getElementById("gifDownload").href = gifUrl;
+    }
+
+    if (!photoUrl && !gifUrl) {
+        document.getElementById("app").innerHTML = `
+            <div class="error">
+                <h2>Sorry 😔</h2>
+                <p>This digital copy link is incomplete.</p>
+            </div>
+        `;
+    }
+</script>
+
+</body>
+</html>
